@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Data files
+data/raw/*.csv
+data/processed/*.npz
+data/processed/*.pkl
+data/processed/*.joblib
+
+# Model artifacts
+models/*.pkl
+models/*.joblib
+
+# Results
+results/figures/*.png
+results/metrics.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docker
+*.log
