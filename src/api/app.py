@@ -10,6 +10,7 @@ from typing import Optional
 import numpy as np
 import joblib
 from scipy import sparse
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, Field
 
@@ -17,10 +18,18 @@ from pydantic import BaseModel, Field
 # App Setup
 # ---------------------------------------------------------------------------
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load_models()
+    yield
+
+
 app = FastAPI(
     title="E-Commerce Recommendation Engine API",
     description="Multi-algorithm product recommendation system with collaborative, content-based, and hybrid approaches.",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # ---------------------------------------------------------------------------
@@ -59,11 +68,6 @@ def load_models():
             _state["metrics"] = json.load(f)
 
     _state["loaded"] = True
-
-
-@app.on_event("startup")
-def startup():
-    load_models()
 
 
 # ---------------------------------------------------------------------------
